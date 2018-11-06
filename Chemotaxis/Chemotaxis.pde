@@ -1,52 +1,66 @@
 Bacteria[] bacteria = new Bacteria[100];
 Bacteria b1;
+
 //declare bacteria variables here   
 void setup()   
 { 
   size (600, 500);
   background (0);
-  frameRate(10000000);
-  bacteria = new Bacteria[1000];
+
+  frameRate(1000);
+  bacteria = new Bacteria[100];
   for (int i = 0; i < bacteria.length; i++) {
     int x = (int)(2 * width * Math.random());
     int y = (int)(2 * height * Math.random());
-    int r = (int)(5 * Math.random()) + 2;
-
-    bacteria[i] = new Bacteria(x, y, r);
+    int r = 20;
+    int colorR = (int)(Math.random() * 255);
+    int colorG = (int)(Math.random() * 255);
+    int colorB = (int)(Math.random() * 255);
+    
+    bacteria[i] = new Bacteria(x, y, r, colorR, colorG, colorB);
   }
 
   b1 = new Bacteria(width/2, height/2, 3);
-
+  // b2 = bacteria(0, bacteria.length);
+  
   //initialize bacteria variables here
 }   
 void draw()   
 {   
+  fill(0);
   b1.show();
-
+  
   for (int i=0; i< bacteria.length; i++) {
     bacteria[i].show();
     bacteria[i].move();
   }
-  //move and show the bacteria
-  if (mousePressed){
-    Bacteria.follow();
-  }
+  
+  mousePressed();
+
 }  
 
-void mousePressed(){
-  for (int i =0; i< bacteria.length; i++){
+void mousePressed() {
+  for (int i =0; i< bacteria.length; i++) {
     bacteria[i].follow(mouseX, mouseY);
   }
 }
 class Bacteria    
 {  
   float x_pos, y_pos, radius, bColor;
+  float colorR, colorG, colorB;
   float speed = random(0, 1);
+  float px;
+  float py;
+  float easing = 0.0005;
 
-  public Bacteria(int x, int y, int radius) {
+  public Bacteria(int x, int y, int radius, int colorR, int colorG, int colorB) {
     x_pos=x;
     y_pos= y;
     this.radius = radius;
+    this.colorR = colorR;
+    this.colorG = colorG;
+    this.colorB = colorB;
+    
   }
 
   void move() {
@@ -57,25 +71,44 @@ class Bacteria
   void show() {
     pushMatrix();
     translate(x_pos, y_pos);
-    fill(200, 0, 200);
-    ellipse(0, 0, radius, radius);
+    fill(#42F2A7);
+    float targetX = mouseX;
+    float dx = targetX - px;
+    px *= dx * easing;
 
+    float targetY = mouseY;
+    float dy = targetY - py;
+    py *= dy * easing;
+    
+    ellipse(px, py, radius, radius);
     popMatrix();
   }
-  
-  
-  void follow(float mX, float mY){
-    if (x_pos >= mX) {
+
+
+  void follow(float x, float y) {
+    if (x_pos >= x) {
       x_pos = x_pos - speed;
-    } else if (x_pos <= mX) {
+    } else if (x_pos <= x) {
       x_pos = x_pos + speed;
     }
-    if (y_pos >= mY) {
+    if (y_pos >=y) {
       y_pos = y_pos - speed;
-    } else if (y_pos <= mY) {
+    } else if (y_pos <= y) {
       y_pos = y_pos + speed;
     }
+  }
   
+  void disperse(float dx, float dy) {
+    if (x_pos >= dx) {
+      x_pos = x_pos - speed;
+    } else if (x_pos <= dx) {
+      x_pos = x_pos + speed;
+    }
+    if (y_pos >=dy) {
+      y_pos = y_pos - speed;
+    } else if (y_pos <= dy) {
+      y_pos = y_pos + speed;
+    }
   }
   //lots of java!
 }    
