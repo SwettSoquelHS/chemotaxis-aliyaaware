@@ -8,7 +8,7 @@ void setup()
   background (0);
 
   frameRate(1000);
-  bacteria = new Bacteria[100];
+  bacteria = new Bacteria[10];
   for (int i = 0; i < bacteria.length; i++) {
     int x = (int)(2 * width * Math.random());
     int y = (int)(2 * height * Math.random());
@@ -16,27 +16,26 @@ void setup()
     int colorR = (int)(Math.random() * 255);
     int colorG = (int)(Math.random() * 255);
     int colorB = (int)(Math.random() * 255);
-    
+
     bacteria[i] = new Bacteria(x, y, r, colorR, colorG, colorB);
   }
 
-  b1 = new Bacteria(width/2, height/2, 3);
+  b1 = new Bacteria(width/2, height/2, 3, 255, 34, 34);
   // b2 = bacteria(0, bacteria.length);
-  
+
   //initialize bacteria variables here
 }   
 void draw()   
 {   
   fill(0);
   b1.show();
-  
+
   for (int i=0; i< bacteria.length; i++) {
     bacteria[i].show();
     bacteria[i].move();
   }
-  
-  mousePressed();
 
+  mousePressed();
 }  
 
 void mousePressed() {
@@ -60,7 +59,6 @@ class Bacteria
     this.colorR = colorR;
     this.colorG = colorG;
     this.colorB = colorB;
-    
   }
 
   void move() {
@@ -79,25 +77,27 @@ class Bacteria
     float targetY = mouseY;
     float dy = targetY - py;
     py *= dy * easing;
-    
+
     ellipse(px, py, radius, radius);
     popMatrix();
   }
 
 
   void follow(float x, float y) {
-    if (x_pos >= x) {
-      x_pos = x_pos - speed;
-    } else if (x_pos <= x) {
-      x_pos = x_pos + speed;
-    }
-    if (y_pos >=y) {
-      y_pos = y_pos - speed;
-    } else if (y_pos <= y) {
-      y_pos = y_pos + speed;
+    if (mousePressed) {
+      if (x_pos >= x) {
+        x_pos = x_pos - speed;
+      } else if (x_pos <= x) {
+        x_pos = x_pos + speed;
+      }
+      if (y_pos >=y) {
+        y_pos = y_pos - speed;
+      } else if (y_pos <= y) {
+        y_pos = y_pos + speed;
+      }
     }
   }
-  
+
   void disperse(float dx, float dy) {
     if (x_pos >= dx) {
       x_pos = x_pos - speed;
