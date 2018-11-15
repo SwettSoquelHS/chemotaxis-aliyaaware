@@ -8,7 +8,7 @@ void setup()
   background (0);
 
   frameRate(1000);
-  bacteria = new Bacteria[100];
+  bacteria = new Bacteria[10];
   for (int i = 0; i < bacteria.length; i++) {
     int x = (int)(2 * width * Math.random());
     int y = (int)(2 * height * Math.random());
@@ -50,7 +50,7 @@ class Bacteria
   float speed = random(0, 1);
   float px;
   float py;
-  float easing = 0.0005;
+  float easing = 0.005;
 
   public Bacteria(int x, int y, int radius, int colorR, int colorG, int colorB) {
     x_pos=x;
@@ -62,8 +62,8 @@ class Bacteria
   }
 
   void move() {
-    x_pos += (float)(2 * Math.random() - 1);
-    y_pos += (float)(2 *  Math.random() -1 );
+    x_pos += (float)( Math.random() - 1);
+    y_pos += (float)(  Math.random() -1 );
   }
 
   void show() {
