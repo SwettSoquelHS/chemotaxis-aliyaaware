@@ -50,7 +50,7 @@ class Bacteria
   float speed = random(0, 1);
   float px;
   float py;
-  float easing = 0.005;
+  float easing = 0.0005;
 
   public Bacteria(int x, int y, int radius, int colorR, int colorG, int colorB) {
     x_pos=x;
