@@ -8,7 +8,7 @@ void setup()
   background (0);
 
   frameRate(1000);
-  bacteria = new Bacteria[10];
+  bacteria = new Bacteria[100];
   for (int i = 0; i < bacteria.length; i++) {
     int x = (int)(2 * width * Math.random());
     int y = (int)(2 * height * Math.random());
