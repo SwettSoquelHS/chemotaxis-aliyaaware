@@ -62,7 +62,7 @@ class Bacteria
   }
 
   void move() {
-    x_pos += (float)( Math.random() - 1);
+    x_pos += (float)(2* Math.random() - 1);
     y_pos += (float)(  Math.random() -1 );
   }
 
